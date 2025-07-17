@@ -3,187 +3,71 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Registro de Estudiantes</title>
+  <title>Sorpresa informática</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Roboto', Arial, sans-serif;
-      background: #f0f0f0;
-    }
-
-    /* Estilo Google Forms */
-    header {
-      background: #673ab7;
-      color: white;
-      padding: 30px;
+      background-color: black;
+      color: limegreen;
+      font-family: 'Courier New', monospace;
       text-align: center;
-      font-size: 1.8em;
-      font-weight: bold;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      padding: 50px;
     }
-
-    .form-container {
-      max-width: 640px;
-      background: white;
-      margin: 40px auto;
-      border-radius: 8px;
-      padding: 40px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      border-top: 10px solid #673ab7;
-    }
-
-    h2 {
-      color: #202124;
-      font-size: 1.5em;
+    h1 {
+      font-size: 3rem;
       margin-bottom: 20px;
     }
-
-    label {
+    p {
+      font-size: 1.5rem;
+    }
+    #countdown {
+      font-size: 4rem;
+      color: red;
       display: block;
       margin-top: 20px;
-      font-size: 1.1em;
-      font-weight: 500;
     }
-
-    input, textarea {
-      width: 100%;
-      padding: 12px;
-      margin-top: 8px;
-      font-size: 1em;
-      border-radius: 4px;
-      border: 1px solid #dadce0;
-      background: #f8f9fa;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-
-    button {
-      margin-top: 30px;
-      background: #673ab7;
+    #educativo {
+      margin-top: 40px;
+      font-size: 1.2rem;
       color: white;
-      border: none;
-      padding: 14px 24px;
-      font-size: 1em;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    button:hover {
-      background: #5e35b1;
-    }
-
-    /* Pantallas hack/final */
-    #encuesta { display:block; }
-    #hack, #final {
-      display:none;
-      position: fixed;
-      top:0; left:0; right:0; bottom:0;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      padding:20px;
-      font-size:2em;
-      font-weight:bold;
-    }
-
-    #hack.active {
-      display:flex;
-      background:black;
-      color:red;
-      flex-direction:column;
-    }
-
-    #hack .countdown {
-      margin-top: 20px;
-      font-size: 1.5em;
-      color: yellow;
-    }
-
-    #final.active {
-      display:flex;
-      background:#0c6;
-      color:white;
-      flex-direction:column;
+      display: none;
     }
   </style>
 </head>
 <body>
-  <header>Registro de Estudiantes</header>
-
-  <!-- Encuesta -->
-  <div id="encuesta">
-    <div class="form-container">
-      <h2>Por favor llena la siguiente encuesta</h2>
-
-      <label for="nombre">Nombres completos</label>
-      <input type="text" id="nombre" placeholder="Ej. Juan Pérez" />
-
-      <label for="carrera">Carrera</label>
-      <input type="text" id="carrera" placeholder="Ej. Ingeniería en Sistemas" />
-
-      <label for="semestre">Semestre al que perteneces</label>
-      <input type="text" id="semestre" placeholder="Ej. 5to semestre" />
-
-      <label for="comentario">¿Qué te pareció la Casa Abierta?</label>
-      <textarea id="comentario" placeholder="Escribe tu comentario..."></textarea>
-
-      <button type="button">Enviar</button>
-    </div>
+  <h1>¡Has sido hackeado!</h1>
+  <p>Tus datos se eliminarán en <span id="countdown">4</span> segundos...</p>
+  <div id="educativo">
+    <h2>⚠️ Esto ha sido una demostración educativa ⚠️</h2>
+    <p>No escanees códigos QR ni descargues archivos de fuentes desconocidas.</p>
+    <p>👉 <strong>Sorpresa informática</strong> para la Casa Abierta 👈</p>
   </div>
 
-  <!-- Pantalla hack -->
-  <div id="hack">
-    ⚠️ HAS SIDO HACKEADO ⚠️<br>
-    Todos tus datos y aplicaciones del celular se eliminarán en breve...
-    <div class="countdown">4</div>
-  </div>
-
-  <!-- Pantalla final -->
-  <div id="final">
-    ✅ Esto fue una demostración educativa. <br><br>
-    ❌ ¡No escanees códigos QR desconocidos!
-  </div>
-
-  <!-- Sonido -->
-  <audio id="alertSound">
-    <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
+  <!-- Sonido de alerta -->
+  <audio id="alerta">
+    <source src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" type="audio/ogg">
+    Tu navegador no soporta el elemento de audio.
   </audio>
 
   <script>
-    // Mostrar hack después de 10 segundos
-    setTimeout(() => {
-      document.getElementById('encuesta').style.display = 'none';
-      const hackScreen = document.getElementById('hack');
-      hackScreen.classList.add('active');
+    window.onload = () => {
+      // reproducir sonido
+      const sonido = document.getElementById('alerta');
+      sonido.play();
 
-      // Reproducir sonido
-      const sound = document.getElementById('alertSound');
-      sound.loop = true; // repetir mientras dure el "hack"
-      sound.play();
-
-      // Cuenta regresiva de 6 segundos
-      let tiempo = 4;
-      const countdownEl = document.querySelector('#hack .countdown');
+      // cuenta regresiva
+      let timeLeft = 5; // comenzamos en 5 para que el primer número mostrado sea 4
       const intervalo = setInterval(() => {
-        tiempo--;
-        countdownEl.textContent = tiempo;
-        if (tiempo <= 0) {
+        timeLeft--;
+        document.getElementById("countdown").textContent = timeLeft;
+        if (timeLeft <= 0) {
           clearInterval(intervalo);
-          sound.pause();
-          sound.currentTime = 0;
-
-          // Mostrar pantalla final
-          hackScreen.classList.remove('active');
-          document.getElementById('final').classList.add('active');
+          // mostrar mensaje educativo
+          document.querySelector('h1').textContent = "✅ Demostración completada";
+          document.querySelector('p').style.display = 'none';
+          document.getElementById('educativo').style.display = 'block';
         }
       }, 1000);
-
-    }, 10000);
+    };
   </script>
 </body>
 </html>
