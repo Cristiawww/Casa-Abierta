@@ -3,95 +3,103 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sorpresa informática</title>
+  <title>Sorpresa Informática</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
       margin: 0;
       padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: #f0f0f0;
     }
-    .card {
-      background: white;
-      max-width: 600px;
-      width: 90%;
+
+    /* Estilo Google Forms */
+    header {
+      background: #673ab7;
+      color: white;
       padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       text-align: center;
-    }
-    .card h1 {
-      color: #3c4043;
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-    .card p {
-      color: #5f6368;
-      font-size: 18px;
-      margin: 10px 0;
-    }
-    #countdown {
-      font-size: 48px;
+      font-size: 1.8em;
       font-weight: bold;
-      color: #d93025;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Pantallas hack/final */
+    #hack, #final {
+      display:flex;
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:20px;
+      font-size:2em;
+      font-weight:bold;
+      flex-direction:column;
+    }
+
+    #hack {
+      background:black;
+      color:red;
+    }
+
+    #hack .countdown {
       margin-top: 20px;
+      font-size: 1.5em;
+      color: yellow;
     }
-    #educativo {
-      display: none;
-      margin-top: 20px;
-    }
-    #educativo h2 {
-      color: #1a73e8;
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-    #educativo p {
-      color: #202124;
-      font-size: 16px;
+
+    #final {
+      background:#0c6;
+      color:white;
+      display:none;
     }
   </style>
 </head>
 <body>
-  <div class="card" id="contenedor">
-    <h1>¡Has sido hackeado!</h1>
-    <p>Tus datos se eliminarán en <span id="countdown">4</span> segundos...</p>
-    <div id="educativo">
-      <h2>⚠️ Esto ha sido una demostración educativa ⚠️</h2>
-      <p>No escanees códigos QR ni descargues archivos de fuentes desconocidas.</p>
-      <p><strong>Sorpresa informática</strong> – Casa Abierta</p>
-    </div>
+  <header>Sorpresa Informática</header>
+
+  <!-- Pantalla hack directa -->
+  <div id="hack">
+    ⚠️ HAS SIDO HACKEADO ⚠️<br>
+    Tus datos se eliminarán en breve...
+    <div class="countdown">4</div>
   </div>
 
-  <audio id="alerta">
-    <source src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" type="audio/ogg">
-    Tu navegador no soporta el elemento de audio.
+  <!-- Pantalla final -->
+  <div id="final">
+    ✅ Esto fue una demostración educativa. <br><br>
+    ❌ ¡No escanees códigos QR desconocidos!
+  </div>
+
+  <!-- Sonido -->
+  <audio id="alertSound">
+    <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
   </audio>
 
   <script>
     window.onload = () => {
       // Reproducir sonido
-      const sonido = document.getElementById('alerta');
-      sonido.play();
+      const sound = document.getElementById('alertSound');
+      sound.loop = true;
+      sound.play();
 
-      // Iniciar cuenta regresiva
-      let timeLeft = 5; // para que empiece mostrando 4
+      // Cuenta regresiva desde 4
+      let tiempo = 4;
+      const countdownEl = document.querySelector('#hack .countdown');
       const intervalo = setInterval(() => {
-        timeLeft--;
-        document.getElementById("countdown").textContent = timeLeft;
-        if (timeLeft <= 0) {
+        tiempo--;
+        countdownEl.textContent = tiempo;
+        if (tiempo <= 0) {
           clearInterval(intervalo);
-          // Mostrar mensaje educativo
-          document.querySelector('h1').textContent = "✅ Demostración completada";
-          document.querySelector('p').style.display = 'none';
-          document.getElementById('educativo').style.display = 'block';
+          sound.pause();
+          sound.currentTime = 0;
+          document.getElementById('hack').style.display = 'none';
+          document.getElementById('final').style.display = 'flex';
         }
       }, 1000);
     };
   </script>
 </body>
 </html>
+
 
